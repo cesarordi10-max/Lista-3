@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+
+int main() {
+    int n;
+    std::cout << "Ingrese el orden n de la matriz cuadrada: ";
+    std::cin >> n;
+
+    std::vector<std::vector<int>> matriz(n, std::vector<int>(n));
+    std::cout << "Ingrese los elementos de la matriz:\n";
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            std::cin >> matriz[i][j];
+        }
+    }
+
+    bool esSimetrica = true;
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            if(matriz[i][j] != matriz[j][i]) {
+                esSimetrica = false;
+                break;
+            }
+        }
+        if(!esSimetrica) break;
+    }
+
+    if(esSimetrica) {
+        std::cout << "La matriz ES simétrica." << std::endl;
+    } else {
+        std::cout << "La matriz NO es simétrica." << std::endl;
+    }
+
+    return 0;
+}
