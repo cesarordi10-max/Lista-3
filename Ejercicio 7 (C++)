@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+
+void insertionSort(std::vector<int> &arr) {
+    int n = arr.size();
+    for (int i = 1; i < n; i++) {
+        int clave = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > clave) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = clave;
+    }
+}
+
+int main() {
+    int n;
+    std::cout << "Ingrese el tamaño del vector: ";
+    std::cin >> n;
+
+    std::vector<int> vec(n);
+    std::cout << "Ingrese los elementos del vector:\n";
+    for(int i = 0; i < n; i++) std::cin >> vec[i];
+
+    insertionSort(vec);
+
+    std::cout << "Vector ordenado por inserción:\n";
+    for(int val : vec) std::cout << val << " ";
+    std::cout << std::endl;
+
+    return 0;
+}
