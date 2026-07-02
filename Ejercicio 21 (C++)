@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+void ordenarParesImpares(std::vector<int> &vec) {
+    std::vector<int> pares;
+    std::vector<int> impares;
+
+    for(int x : vec) {
+        if(x % 2 == 0) pares.push_back(x);
+        else impares.push_back(x);
+    }
+
+    // Ordenar pares de forma ascendente
+    std::sort(pares.begin(), pares.end());
+    // Ordenar impares de forma descendente
+    std::sort(impares.begin(), impares.end(), std::greater<int>());
+
+    // Unir ambos vectores de vuelta al original
+    vec.clear();
+    vec.insert(vec.end(), pares.begin(), pares.end());
+    vec.insert(vec.end(), impares.begin(), impares.end());
+}
+
+int main() {
+    std::vector<int> vec = {1, 2, 3, 4, 5, 6};
+
+    ordenarParesImpares(vec);
+
+    std::cout << "Resultado: { ";
+    for(int x : vec) std::cout << x << " ";
+    std::cout << "}\n";
+
+    return 0;
+}
