@@ -1,0 +1,38 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+int main() {
+    // 1. Crear archivo productos.txt de ejemplo si no existe
+    std::ofstream initFile("productos.txt");
+    initFile << "Laptop 1200.0\nCelular 500.0\nTeclado 45.0\nMouse 25.0\n";
+    initFile.close();
+
+    // 2. Leer productos, aplicar descuentos y generar reporte final
+    std::ifstream archivoLectura("productos.txt");
+    std::ofstream reporte("reporte_final.txt");
+
+    if(!archivoLectura.is_open() || !reporte.is_open()) {
+        std::cerr << "Error al abrir los archivos.\n";
+        return 1;
+    }
+
+    double descuento = 10.0; // Descuento estático del 10%
+    std::string producto;
+    double precio;
+
+    reporte << "--- REPORTE FINAL DE INVENTARIO (Desc. " << descuento << "%) ---\n";
+    
+    while(archivoLectura >> producto >> precio) {
+        double precioConDescuento = precio - (precio * (descuento / 100.0));
+        reporte << "Producto: " << producto 
+                << " | Precio Base: $" << precio 
+                << " | Con Descuento: $" << precioConDescuento << "\n";
+    }
+
+    std::cout << "Reporte generado con éxito en 'reporte_final.txt'\n";
+
+    archivoLectura.close();
+    reporte.close();
+    return 0;
+}
