@@ -1,0 +1,27 @@
+#include <iostream>
+
+int main() {
+    int n;
+    std::cout << "Ingrese el tamaño del vector dinámico: ";
+    std::cin >> n;
+
+    // Asignación de memoria dinámica usando new
+    int* vecDinamico = new int[n];
+
+    std::cout << "Ingrese los elementos:\n";
+    for(int i = 0; i < n; i++) {
+        std::cin >> vecDinamico[i];
+    }
+
+    std::cout << "Los valores ingresados son:\n";
+    for(int i = 0; i < n; i++) {
+        std::cout << vecDinamico[i] << " ";
+    }
+    std::cout << std::endl;
+
+    // Liberación de memoria usando delete[]
+    delete[] vecDinamico;
+    vecDinamico = nullptr;
+
+    return 0;
+}
