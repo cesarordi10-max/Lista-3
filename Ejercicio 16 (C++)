@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+
+int particion(std::vector<int> &arr, int bajo, int alto) {
+    int pivote = arr[alto];
+    int i = (bajo - 1);
+
+    for (int j = bajo; j <= alto - 1; j++) {
+        if (arr[j] < pivote) {
+            i++;
+            std::swap(arr[i], arr[j]);
+        }
+    }
+    std::swap(arr[i + 1], arr[alto]);
+    return (i + 1);
+}
+
+void quickSort(std::vector<int> &arr, int bajo, int alto) {
+    if (bajo < alto) {
+        int pi = particion(arr, bajo, alto);
+        quickSort(arr, bajo, pi - 1);
+        quickSort(arr, pi + 1, alto);
+    }
+}
+
+int main() {
+    int n;
+    std::cout << "Ingrese el número de elementos: ";
+    std::cin >> n;
+
+    std::vector<int> vec(n);
+    std::cout << "Ingrese los elementos:\n";
+    for(int i = 0; i < n; i++) std::cin >> vec[i];
+
+    quickSort(vec, 0, n - 1);
+
+    std::cout << "Vector ordenado con QuickSort:\n";
+    for(int val : vec) std::cout << val << " ";
+    std::cout << std::endl;
+
+    return 0;
+}
