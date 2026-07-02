@@ -1,0 +1,18 @@
+#include <iostream>
+
+int invertirDigitos(int numero) {
+    int invertido = 0;
+    while(numero > 0) {
+        int digito = numero % 10;
+        invertido = invertido * 10 + digito;
+        numero /= 10;
+    }
+    return invertido;
+}
+
+int main() {
+    int num = 7631;
+    std::cout << "Número original: " << num << "\n";
+    std::cout << "Número invertido: " << invertirDigitos(num) << std::endl;
+    return 0;
+}
