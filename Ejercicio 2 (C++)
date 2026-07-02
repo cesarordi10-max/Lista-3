@@ -1,0 +1,19 @@
+#include <iostream>
+#include <vector>
+
+int main() {
+    int n;
+    double suma = 0.0;
+    std::cout << "Ingrese la cantidad de notas: ";
+    std::cin >> n;
+
+    std::vector<double> notas(n);
+    std::cout << "Ingrese las notas:\n";
+    for(int i = 0; i < n; i++) {
+        std::cin >> notas[i];
+        suma += notas[i];
+    }
+
+    std::cout << "El promedio de notas es: " << (suma / n) << std::endl;
+    return 0;
+}
