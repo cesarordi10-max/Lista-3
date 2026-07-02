@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <climits>
+
+int main() {
+    int n;
+    std::cout << "Ingrese la cantidad de elementos: ";
+    std::cin >> n;
+
+    std::vector<int> vec(n);
+    std::cout << "Ingrese los elementos:\n";
+    for(int i = 0; i < n; i++) {
+        std::cin >> vec[i];
+    }
+
+    int maximo = INT_MIN;
+    int minimo = INT_MAX;
+
+    for(int val : vec) {
+        if(val > maximo) maximo = val;
+        if(val < minimo) minimo = val;
+    }
+
+    std::cout << "El mayor valor es: " << maximo << std::endl;
+    std::cout << "El menor valor es: " << minimo << std::endl;
+    return 0;
+}
