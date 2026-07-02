@@ -1,0 +1,22 @@
+#include <iostream>
+
+long long calcularFactorial(int n) {
+    long long fact = 1;
+    for(int i = 1; i <= n; i++) {
+        fact *= i;
+    }
+    return fact;
+}
+
+int main() {
+    int num;
+    std::cout << "Ingrese un número entero no negativo: ";
+    std::cin >> num;
+
+    if(num < 0) {
+        std::cout << "El factorial no está definido para números negativos.\n";
+    } else {
+        std::cout << "El factorial de " << num << " es: " << calcularFactorial(num) << std::endl;
+    }
+    return 0;
+}
