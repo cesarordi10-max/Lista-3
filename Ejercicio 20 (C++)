@@ -1,0 +1,59 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+struct Alumno {
+    std::string nombre;
+    double n1, n2, n3;
+    double promedio;
+};
+
+bool compararPorPromedio(const Alumno& a, const Alumno& b) {
+    return a.promedio > b.promedio;
+}
+
+void procesarGrupo(const std::string& archivoOrigen, std::vector<Alumno>& listaDestino) {
+    std::ifstream archivo(archivoOrigen);
+    Alumno al;
+    while (archivo >> al.nombre >> al.n1 >> al.n2 >> al.n3) {
+        al.promedio = (al.n1 + al.n2 + al.n3) / 3.0;
+        listaDestino.push_back(al);
+    }
+    archivo.close();
+    std::sort(listaDestino.begin(), listaDestino.end(), compararPorPromedio);
+}
+
+int main() {
+    // Generando archivos de prueba
+    std::ofstream ga("grupoA.txt");
+    ga << "Ana 15 16 18\nCarlos 11 12 10\nBeatriz 19 18 20\nDavid 14 13 15\n"; ga.close();
+    std::ofstream gb("grupoB.txt");
+    gb << "Jose 12 14 11\nMaria 20 19 19\nLuis 08 12 11\nElena 17 16 15\n"; gb.close();
+
+    std::vector<Alumno> grupoA, grupoB;
+    procesarGrupo("grupoA.txt", grupoA);
+    procesarGrupo("grupoB.txt", grupoB);
+
+    // Reescribir ordenados por mérito
+    std::ofstream gaOut("grupoA.txt");
+    for(auto& al : grupoA) gaOut << al.nombre << " " << al.promedio << "\n"; gaOut.close();
+
+    std::ofstream gbOut("grupoB.txt");
+    for(auto& al : grupoB) gbOut << al.nombre << " " << al.promedio << "\n"; gbOut.close();
+
+    // Tercio Superior e Impresión final
+    std::ofstream tercioFile("tercio_superior.txt");
+    tercioFile << "--- TERCIO SUPERIOR GRUPO A ---\n";
+    int tercioA = grupoA.size() / 3; if(tercioA == 0 && !grupoA.empty()) tercioA = 1;
+    for(int i = 0; i < tercioA; i++) tercioFile << grupoA[i].nombre << " (" << grupoA[i].promedio << ")\n";
+
+    tercioFile << "\n--- TERCIO SUPERIOR GRUPO B ---\n";
+    int tercioB = grupoB.size() / 3; if(tercioB == 0 && !grupoB.empty()) tercioB = 1;
+    for(int i = 0; i < tercioB; i++) tercioFile << grupoB[i].nombre << " (" << grupoB[i].promedio << ")\n";
+    tercioFile.close();
+
+    std::cout << "Archivos del grupo A, B ordenados y 'tercio_superior.txt' generados correctamente.\n";
+    return 0;
+}
