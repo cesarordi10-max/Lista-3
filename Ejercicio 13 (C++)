@@ -1,0 +1,29 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+int main() {
+    std::ifstream archivo("productos_lista.txt");
+    if(!archivo.is_open()) {
+        std::cerr << "No se pudo abrir productos_lista.txt\n";
+        return 1;
+    }
+
+    double descuento;
+    std::cout << "Ingrese el porcentaje de descuento a aplicar (0 - 100): ";
+    std::cin >> descuento;
+
+    std::string producto;
+    double precio;
+
+    std::cout << "\n--- Catálogo con Descuento Aplicado ---\n";
+    while(archivo >> producto >> precio) {
+        double precioFinal = precio - (precio * (descuento / 100.0));
+        std::cout << "Producto: " << producto 
+                  << " | Precio Orig: " << precio 
+                  << " | Precio Final: " << precioFinal << "\n";
+    }
+
+    archivo.close();
+    return 0;
+}
